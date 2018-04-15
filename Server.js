@@ -129,9 +129,29 @@ app.use(cors);
 
 app.listen(4000);
 
+// 전체리스트
 app.get('/company',function(req,res){
     
     let data = { title : 'company' , name : '회사명' };
     res.json(company);    
     
+});
+
+// 하나의 회사정보
+app.get('/company/:id',function(req,res){
+    
+    let data = company.company;
+    let company_id = req.params.id;
+    console.log(company_id);
+    
+    
+    let result = data.filter(function(value,index){
+        return value.id === Number(company_id);
+    });
+    
+    res.json({ 
+        name : result[0].name,
+        recruit : result[0].recruit,
+        details : result[0]
+            });
 });
